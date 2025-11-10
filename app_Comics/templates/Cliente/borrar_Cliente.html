@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Confirmar Eliminación</h4>
+            </div>
+            <div class="card-body text-center">
+                <div class="alert alert-warning" role="alert">
+                    <h5><i class="fas fa-exclamation-circle"></i> ¡Atención!</h5>
+                    <p class="mb-0">¿Estás seguro de que deseas eliminar este cliente?</p>
+                </div>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cliente.nombre }}</h5>
+                        <p class="card-text">
+                            <strong>Email:</strong> {{ cliente.email }}<br>
+                            <strong>Teléfono:</strong> {{ cliente.telefono }}<br>
+                            <strong>Producto de Interés:</strong> {{ cliente.producto.nombre }}<br>
+                            <strong>Ciudad:</strong> {{ cliente.ciudad }}, {{ cliente.pais }}
+                        </p>
+                    </div>
+                </div>
+                
+                <p class="text-muted"><small>Esta acción no se puede deshacer.</small></p>
+                
+                <form method="POST" action="{% url 'confirmar_borrar_Cliente' cliente.id %}">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="fas fa-trash"></i> Sí, Eliminar Cliente
+                        </button>
+                        <a href="{% url 'ver_Clientes' %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
